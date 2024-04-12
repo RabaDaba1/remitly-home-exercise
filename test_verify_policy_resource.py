@@ -95,10 +95,21 @@ def test_verify_policy_resource_empty_statement():
         }
     }
     
-    error_message = 'The policy Statement key\'s value is an empty list'
+    error_message = 'The policy Statement value is an empty list'
     with pytest.raises(ValueError, match=error_message) as e:
         verify_policy_resource(policy)
     
+    
+def test_verify_policy_resource_multiple_statements():
+    policy = {
+        'PolicyDocument': {
+            'Statement': ['statement1', 'statement2']
+        }
+    }
+    
+    with pytest.raises(ValueError, match='The policy has more than one Statement'):
+        verify_policy_resource(policy)
+
     
 def test_verify_policy_resource_no_resource():
     policy = {
