@@ -107,7 +107,8 @@ def test_verify_policy_resource_multiple_statements():
         }
     }
     
-    with pytest.raises(ValueError, match='The policy has more than one Statement'):
+    error_message = 'The policy has more than one Statement'
+    with pytest.raises(ValueError, match=error_message):
         verify_policy_resource(policy)
 
     
